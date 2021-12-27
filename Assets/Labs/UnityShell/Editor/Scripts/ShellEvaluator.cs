@@ -1,30 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Mono.CSharp;
-using UnityEngine;
 namespace UnityShell
 {
     [Serializable]
     public class ShellEvaluator
     {
+        public string cur_prefix;
         public string[] completions;
 
         int handleCount;
 
-#if NET_4_6 || NET_STANDARD_2_0
         public Evaluator evaluator;
-#endif
 
         public ShellEvaluator()
         {
             new Thread( InitializeEvaluator ).Start();
-            var a = new GameObject();
         }
 
         void InitializeEvaluator()
         {
-#if NET_4_6 || NET_STANDARD_2_0
             evaluator = new Evaluator( new CompilerContext( new CompilerSettings(), new ConsoleReportPrinter() ) );
             AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach( asm =>
             {
@@ -35,26 +32,14 @@ namespace UnityShell
                 catch { }
             } );
             evaluator.Run( "using UnityEngine; using UnityEditor; using System; using System.Collections.Generic;" );
-#else
-			AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(asm => {
-				try
-				{
-					Evaluator.ReferenceAssembly(asm);
-				}
-				catch { }
-			});
-			Evaluator.Run("using UnityEngine; using UnityEditor; using System; using System.Collections.Generic;");
-#endif
         }
 
         public void SetInput(string input)
         {
-#if NET_4_6 || NET_STANDARD_2_0
             if (evaluator == null)
             {
                 return;
             }
-#endif
 
             handleCount++;
             new Thread( () =>
@@ -63,12 +48,7 @@ namespace UnityShell
 
                 if (!string.IsNullOrEmpty( input ))
                 {
-                    string prefix;
-#if NET_4_6 || NET_STANDARD_2_0
-                    var result = evaluator.GetCompletions( input, out prefix );
-#else
-					var result = Evaluator.GetCompletions(input, out prefix);
-#endif
+                    var result = evaluator.GetCompletions( input, out cur_prefix );
 
                     // Avoid old threads overriding with old results
                     if (handle == handleCount)
@@ -98,35 +78,27 @@ namespace UnityShell
 
         public object Evaluate(string command)
         {
-#if NET_4_6 || NET_STANDARD_2_0
             if (evaluator == null)
             {
                 return null;
             }
-#endif
 
             if (!command.EndsWith( ";" ))
             {
                 command += ";";
             }
 
-#if NET_4_6 || NET_STANDARD_2_0
-            var compilationResult = evaluator.Compile( command );
-#else
-			var compilationResult = Evaluator.Compile(command);
-#endif
-            if (compilationResult == null)
+            var success = evaluator.Compile( command, out var compilationMethod );
+            var num = success?.Length ?? -1;
+            if (compilationMethod == null)
             {
-                return "Compilation failed";
+                return "Incomplete expression or statement! Can not compile.";
             }
 
             object result = null;
-            compilationResult( ref result );
-
-            if (result == null)
-            {
-                result = "Executed code successfully";
-            }
+            compilationMethod( ref result );
+            string result_s = result == null ? "" : result.ToString();
+            result = result_s + evaluator.GetVars();
             return result;
         }
     }
