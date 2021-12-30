@@ -1,7 +1,28 @@
 # fork from [marijnz/unity-shell](https://github.com/marijnz/unity-shell)
-This fork:
-1. try to delete the Mono.CSharp.3.5.dll. 
-2. and only support the API version for NET_4_6 and NET_STANDARD_2_0.
+## This fork:
+1. Use UIElement for the frontend.
+2. Use the same evaluation code from the fork by Mono.CSharp.
+
+## How to use:
+
+![image](https://user-images.githubusercontent.com/53459343/147764928-977ee5bf-589b-42e2-8bf0-7b64488d9a6e.png)
+
+
+1. Open the window: 
+![image](https://user-images.githubusercontent.com/53459343/147764409-7d6586f1-c517-4766-9d93-ae3cddbf8e8e.png)
+
+2. Input a piece of code and press crtl + enter to execute it.
+![image](https://user-images.githubusercontent.com/53459343/147764794-c4d89c8b-7297-418b-ae37-f16b3b2ad193.png)
+
+3. See the completion from here:
+![image](https://user-images.githubusercontent.com/53459343/147764904-4d513a83-c9ef-41fe-8273-b262b43ce32b.png)
+
+
+4. Drag an Unity.Object from the editor to shell to import a Object variable. 
+![image](https://user-images.githubusercontent.com/53459343/147764528-63dee6a4-8c29-47e2-b983-a70481fb87ac.png)
+![image](https://user-images.githubusercontent.com/53459343/147764607-c81a2748-dc81-4698-b15f-488dff4d96e4.png)
+
+
 
 # The original README
 # unity-shell
