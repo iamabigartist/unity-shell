@@ -22,11 +22,18 @@ namespace Labs.TestFrontend
         string variables;
         [SerializeField]
         string logs;
+        [SerializeField]
+        Object add_object;
+        [SerializeField]
+        string add_object_name;
+
+        public static Object cur_add_object;
 
         MyEvaluator m_evaluator;
 
         void CreateGUI()
         {
+            add_object = new Object();
             m_evaluator = new MyEvaluator();
             m_visualTreeAsset.CloneTree( rootVisualElement );
             rootVisualElement.Bind( new SerializedObject( this ) );
@@ -35,10 +42,22 @@ namespace Labs.TestFrontend
                 var input_field = e.currentTarget as TextField;
                 if (!(e.keyCode == KeyCode.Return && e.ctrlKey)) { return; }
                 logs += "> " + input_field!.value + "\n";
-                logs += "> " + m_evaluator.Compile( input_field.value ) + "\n";
+                var result = m_evaluator.Compile( input_field.value );
+                logs += result == null ? "" : "> " + result + "\n";
                 variables = m_evaluator.evaluator.GetVars();
                 input_field.value = string.Empty;
             } );
+
+            var add_input = rootVisualElement.Q<VisualElement>( "AddInput" );
+            add_input.Q<Button>().clicked += () =>
+            {
+                var cur_type = add_object.GetType();
+                cur_add_object = add_object;
+                var command = $"var {add_object_name.Replace( ' ', '_' )} = Labs.TestFrontend.UnityShellV0.cur_add_object as {cur_type};";
+                m_evaluator.evaluator.Run( command );
+                variables = m_evaluator.evaluator.GetVars();
+            };
+
         }
 
     }
