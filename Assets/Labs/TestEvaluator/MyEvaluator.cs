@@ -18,7 +18,7 @@ namespace Labs.TestEvaluator
             EvaluateExpression
         }
 
-        Evaluator evaluator;
+        public Evaluator evaluator;
         public MyEvaluator()
         {
             InitEvaluator();
@@ -49,7 +49,7 @@ namespace Labs.TestEvaluator
             evaluator.Compile( command, out var compilationMethod );
             if (compilationMethod == null)
             {
-                return "Incomplete expression or statement! Can not compile.";
+                return "No result";
             }
 
             object result = null;
@@ -59,6 +59,7 @@ namespace Labs.TestEvaluator
 
         public string EvaluateExpression(string expression)
         {
+
             if (!expression.EndsWith( ";" ))
             {
                 expression += ";";
