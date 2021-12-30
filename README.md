@@ -1,7 +1,7 @@
 # fork from [marijnz/unity-shell](https://github.com/marijnz/unity-shell)
 ## This fork:
 1. Use UIElement for the frontend.
-2. Use the same evaluation code from the fork by Mono.CSharp.
+2. Use the same evaluation code from the fork by Mono.CSharp.dll.
 
 ## How to use:
 
