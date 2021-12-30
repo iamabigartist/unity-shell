@@ -1,8 +1,10 @@
-﻿using Labs.TestEvaluator;
+﻿using System;
+using Labs.TestEvaluator;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 namespace Labs.TestFrontend
 {
     public class UnityShellV0 : EditorWindow
@@ -26,10 +28,11 @@ namespace Labs.TestFrontend
         Object add_object;
         [SerializeField]
         string add_object_name;
-
         public static Object cur_add_object;
 
         MyEvaluator m_evaluator;
+
+        string[] completion_string_list;
 
         void CreateGUI()
         {
@@ -37,18 +40,13 @@ namespace Labs.TestFrontend
             m_evaluator = new MyEvaluator();
             m_visualTreeAsset.CloneTree( rootVisualElement );
             rootVisualElement.Bind( new SerializedObject( this ) );
-            rootVisualElement.Q<VisualElement>( "Input" ).Q<TextField>().RegisterCallback<KeyUpEvent>( (e) =>
-            {
-                var input_field = e.currentTarget as TextField;
-                if (!(e.keyCode == KeyCode.Return && e.ctrlKey)) { return; }
-                logs += "> " + input_field!.value + "\n";
-                var result = m_evaluator.Compile( input_field.value );
-                logs += result == null ? "" : "> " + result + "\n";
-                variables = m_evaluator.evaluator.GetVars();
-                input_field.value = string.Empty;
-            } );
+            input_field = rootVisualElement.Q<VisualElement>( "Input" ).Q<TextField>();
 
-            var add_input = rootVisualElement.Q<VisualElement>( "AddInput" );
+            input_field.RegisterCallback<KeyUpEvent>( InputExecuteCallback );
+
+
+
+            var add_input = rootVisualElement.Q<VisualElement>( "Tools" ).Q<VisualElement>( "AddInput" );
             add_input.Q<Button>().clicked += () =>
             {
                 var cur_type = add_object.GetType();
@@ -58,6 +56,43 @@ namespace Labs.TestFrontend
                 variables = m_evaluator.evaluator.GetVars();
             };
 
+            m_completionList = rootVisualElement.Q<VisualElement>( "Tools" ).Q<ListView>( "Completion" );
+
+            m_completionList.itemsSource = completion_string_list;
+            m_completionList.makeItem = () => new Label();
+            m_completionList.bindItem = (v, i) =>
+            {
+                ((Label)v).text = completion_string_list[i];
+            };
+            m_completionList.Refresh();
+
+            input_field.RegisterValueChangedCallback( (e) =>
+            {
+                var code = e.newValue;
+                completion_string_list =
+                    m_evaluator.evaluator.GetCompletions( code, out var prefix ) ??
+                    Array.Empty<string>();
+                // for (int i = 0; i < completion_string_list.Length; i++)
+                // {
+                //     completion_string_list[i] = prefix + completion_string_list[i];
+                // }
+                m_completionList.itemsSource = completion_string_list;
+                m_completionList.Refresh();
+            } );
+
+        }
+
+
+        TextField input_field;
+        ListView m_completionList;
+        void InputExecuteCallback(KeyUpEvent e)
+        {
+            if (!(e.keyCode == KeyCode.Return && e.ctrlKey)) { return; }
+            logs += "> " + input_field!.value + "\n";
+            var result = m_evaluator.Compile( input_field.value );
+            logs += result == null ? "" : "> " + result + "\n";
+            variables = m_evaluator.evaluator.GetVars();
+            input_field.value = string.Empty;
         }
 
     }
