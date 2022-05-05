@@ -9,7 +9,7 @@ namespace Labs.TestFrontend
 {
     public class UnityShellV0 : EditorWindow
     {
-        [MenuItem( "Labs.Test1.Editor/UnityShellV0" )]
+        [MenuItem( "Labs/Labs.Test1.Editor/UnityShellV0" )]
         static void ShowWindow()
         {
             var window = GetWindow<UnityShellV0>();

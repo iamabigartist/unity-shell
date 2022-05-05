@@ -13,7 +13,9 @@
         "Microsoft.CodeAnalysis.dll",
         "Microsoft.CodeAnalysis.Scripting.dll",
         "Microsoft.CodeAnalysis.Workspaces.dll",
-        "Mono.CSharp.dll"
+        "Mono.CSharp.dll",
+        "System.Collections.Immutable.dll",
+        "System.Composition.Runtime.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [],

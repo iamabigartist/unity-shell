@@ -15,7 +15,7 @@ namespace Labs.TestEvaluator
 
         public static void Aaaa() { }
 
-        [MenuItem( "Tests/TryEva" )]
+        [MenuItem( "Labs/Labs.TestEvaluator/TryEva" )]
         static void ShowWindow()
         {
             var window = GetWindow<TryEva>();
