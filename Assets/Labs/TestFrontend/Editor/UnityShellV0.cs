@@ -64,7 +64,7 @@ namespace Labs.TestFrontend
             {
                 ((Label)v).text = completion_string_list[i];
             };
-            m_completionList.Refresh();
+            m_completionList.Rebuild();
 
             input_field.RegisterValueChangedCallback( (e) =>
             {
@@ -77,7 +77,7 @@ namespace Labs.TestFrontend
                 //     completion_string_list[i] = prefix + completion_string_list[i];
                 // }
                 m_completionList.itemsSource = completion_string_list;
-                m_completionList.Refresh();
+                m_completionList.Rebuild();
             } );
 
         }
