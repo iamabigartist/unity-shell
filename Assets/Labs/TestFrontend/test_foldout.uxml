@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/Labs/TestFrontend/foldout_style.uss?fileID=7433441132597879392&amp;guid=87398f62965efdc4b878d52480dfeaf3&amp;type=3#foldout_style" />
+    <ui:VisualElement style="align-items: flex-start; justify-content: space-around;">
+        <ui:Foldout text="Foldout" style="flex-shrink: 0;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" />
+            <ui:Foldout text="Foldout">
+                <ui:Foldout text="Foldout">
+                    <ui:Foldout text="Foldout">
+                        <ui:Label text="Label" display-tooltip-when-elided="true" />
+                    </ui:Foldout>
+                    <ui:Label text="Label" display-tooltip-when-elided="true" />
+                </ui:Foldout>
+                <ui:Label text="Label" display-tooltip-when-elided="true" />
+            </ui:Foldout>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

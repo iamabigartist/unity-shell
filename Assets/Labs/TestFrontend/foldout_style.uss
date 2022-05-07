@@ -1,0 +1,7 @@
+Foldout > Toggle {
+    margin: 3px 2 4px 1;
+}
+
+Foldout > #unity-content {
+    margin-left: 20px;
+}
