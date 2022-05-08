@@ -1,10 +1,28 @@
-﻿Foldout {
+﻿:root {
+    --line-height: 25px;
+}
+
+* {
+    font-size: 16px;
+    /*-unity-font-definition: resource('consola SDF');*/
+    -unity-text-align: middle-left;
+    /*border-width: 0.1px;*/
+    /*border-color: #a2a2a2;*/
+}
+
+.JToken {
+    min-height: var(--line-height);
+    align-items: flex-start;
+}
+
+Foldout {
     padding: 0;
 }
 
 Foldout > Toggle {
     margin: 0;
-    min-height: 24px;
+    padding: 0;
+    height: var(--line-height);
 }
 
 Foldout > #unity-content {
@@ -15,21 +33,11 @@ Foldout > #unity-content {
     justify-content: space-around;
 }
 
-.JPropertyName {
-    min-height: 24px;
-    padding-right: 20px;
-}
-
 .JProperty {
     flex-direction: row;
 }
 
-.JToken {
-    min-height: 24px;
-    align-items: flex-start;
-}
-
-* {
-    font-size: 16px;
-    -unity-font-definition: resource('Monoid-Retina SDF');
+.JPropertyName {
+    height: var(--line-height);
+    padding-right: 15px;
 }

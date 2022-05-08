@@ -113,7 +113,7 @@ namespace Labs.TestJsonVisualizer
 					JTokenType.TimeSpan
 					=> new Label(token.Value<string>())
 					{
-						isSelectable = true
+						isSelectable = true,
 					},
 				JTokenType.Null => new Label("Null"),
 				JTokenType.Undefined => new Label("Undefined"),
