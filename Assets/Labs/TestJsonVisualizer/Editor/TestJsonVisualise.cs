@@ -57,7 +57,14 @@ namespace Labs.TestJsonVisualizer.Editor
 				ReferenceLoopHandling = ReferenceLoopHandling.Ignore
 			}));
 
-			var scroll_view = new ScrollView(ScrollViewMode.VerticalAndHorizontal);
+			var scroll_view = new ScrollView(ScrollViewMode.VerticalAndHorizontal)
+			{
+				style =
+				{
+					flexGrow = 1,
+					backgroundColor = new Color(0.78f, 0.78f, 0.78f),
+				}
+			};
 			scroll_view.Add(m_object_json_ve);
 			rootVisualElement.Add(scroll_view);
 		}

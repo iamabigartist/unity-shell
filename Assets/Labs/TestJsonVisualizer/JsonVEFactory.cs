@@ -26,6 +26,11 @@ namespace Labs.TestJsonVisualizer
 			{
 				preview_element_names.Add(properties[i].Name);
 			}
+			if (max_obj_preview_elements_count < properties.Length)
+			{
+				preview_element_names.Add("...");
+			}
+
 			var preview_name = $"{{{string.Join(", ", preview_element_names)}}}";
 			foldout.text = preview_name;
 			foldout.RegisterValueChangedCallback(e =>
@@ -128,9 +133,11 @@ namespace Labs.TestJsonVisualizer
 
 		public VisualElement GenVE(JToken json)
 		{
+			var container = new VisualElement();
 			var ve = JTokenToVE(json);
-			ve.styleSheets.Add(styleSheet);
-			return ve;
+			container.Add(ve);
+			container.styleSheets.Add(styleSheet);
+			return container;
 		}
 	}
 }
