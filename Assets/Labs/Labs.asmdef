@@ -16,7 +16,11 @@
         "Mono.CSharp.dll",
         "System.Collections.Immutable.dll",
         "System.Composition.Runtime.dll",
-        "Newtonsoft.Json.dll"
+        "Newtonsoft.Json.dll",
+        "System.Reflection.Metadata.dll",
+        "System.Runtime.Loader.dll",
+        "Microsoft.CodeAnalysis.CSharp.Features.dll",
+        "Microsoft.CodeAnalysis.Features.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [],

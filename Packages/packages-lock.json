@@ -117,6 +117,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.roslyn": {
+      "version": "0.2.2-preview",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.services.analytics": {
       "version": "1.0.5",
       "depth": 1,
