@@ -46,7 +46,7 @@ namespace Labs.TestJsonVisualizer
 				{
 					fold_out.text = preview_name;
 				}
-				e.StopPropagation();
+				e.StopImmediatePropagation();
 			});
 		}
 

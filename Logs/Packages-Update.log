@@ -77,3 +77,12 @@ The following packages were updated:
   com.unity.timeline from version 1.4.8 to 1.7.0-pre.2
 The following packages were removed:
   com.unity.ui.builder@1.0.0-preview.18
+
+=== Mon Sep  5 09:59:34 2022
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.ide.rider from version 3.0.14 to 3.0.15
+  com.unity.ide.visualstudio from version 2.0.15 to 2.0.16
